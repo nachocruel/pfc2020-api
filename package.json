@@ -1,0 +1,36 @@
+{
+  "name": "hubfire",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-query-int": "^3.0.0",
+    "firebase": "^7.6.2",
+    "g": "^2.0.1",
+    "gridfs-stream": "^1.1.1",
+    "lodash": "^4.17.15",
+    "mongodb": "^3.5.2",
+    "mongoose": "^5.8.11",
+    "morgan": "^1.9.1",
+    "node-restful": "^0.2.6",
+    "nodemon": "^2.0.2",
+    "npm": "^6.13.6",
+    "pubnub": "^4.27.3",
+    "rxjs": "^6.5.4",
+    "rxjs-compat": "^6.5.4"
+  },
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.14.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "heroku-postbuild": "npm install",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "edvan",
+  "license": "ISC"
+}
