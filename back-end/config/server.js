@@ -15,8 +15,8 @@ server.use(queryParser())
 server.use(express.static(path.join(__dirname, 'client/build')))
 
 
-server.listen(port, function() {
-  console.log(`Servidor executando na port: ${port}.`)
+server.listen(process.env.PORT || port, function() {
+  console.log(`Servidor executando...`)
 })
 
 module.exports = server
