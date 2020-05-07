@@ -1,7 +1,4 @@
-// email: pfc.medicao.2020@gmail.com
-// senha: pfc.2020@123
-// site url: https://us-central1-my-fps.cloudfunctions.net/appPFC
-var firebase = require("firebase/app");
+
 require("firebase/auth");
 require("firebase/firestore");
 require("firebase/database");
@@ -9,27 +6,32 @@ var PubNub = require("pubnub");
 var {connectionCloud, creteSchemaDevice, mongo} = require('./mongodb_manager')
 const listaRespostas = []
 
- var firebaseConfig = {
-    apiKey: "AIzaSyCiQukvo_DTNhOIUn9BFbFCtVtGjZqiLyg",
-    authDomain: "condoease-3f3ea.firebaseapp.com",
-    databaseURL: "https://condoease-3f3ea.firebaseio.com",
-    projectId: "condoease-3f3ea",
-    storageBucket: "condoease-3f3ea.appspot.com",
-    messagingSenderId: "207405380713",
-    appId: "1:207405380713:web:7ad0e9a0828a51f8"
-  };
-
+ 
   var pubNub = new PubNub({
       publishKey: "pub-c-e5c8e409-367f-4eb2-8d95-0d93e5fdfd8b",
       subscribeKey:"sub-c-4c1671dc-347a-11ea-b8ef-b6462cb07a90",
       ssl:true
   })
 
-  firebase.initializeApp(firebaseConfig);
-
   pubNub.subscribe({
     channels: ['chan-1', 'registro', 'chan-2', 'chan-3'],
   });
+
+
+  function SendNotification(msg/*, id_device*/){
+
+    var client = new Client();
+    //Requisia o usuario
+    var args = {
+       data: {app_id:"7d7c91f4-411d-48a2-9535-da37e4e8fb86", contents: {en:msg}, included_segments:["Active Users", "Inactive Users"]/*, include_player_ids: [id_device]*/},
+       headers: { "Content-Type": "application/json; charset=utf-8",
+       "Authorization": "Basic MjYyOWU1NjUtODA2Mi00MzExLThhN2UtY2UzZjRlNzY0ZTY1" }
+    };
+  
+    client.post("https://onesignal.com/api/v1/notifications", args, function (data, response) {
+         console.log("Notificação enviada com sucesso!");
+    });
+  }
   
  exports.initPub = ()=>{
      let self = this
@@ -44,7 +46,7 @@ const listaRespostas = []
             var publisher = m.publisher; //The Publisher
             
             if(channelName === 'chan-1'){
-               
+                SendNotification(msg.message)
             }else if(channelName === 'registro'){
                 console.log('channelName: ', channelName)
                 
