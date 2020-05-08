@@ -1,7 +1,5 @@
 
-require("firebase/auth");
-require("firebase/firestore");
-require("firebase/database");
+var Client = require('node-rest-client').Client;
 var PubNub = require("pubnub");
 var {connectionCloud, creteSchemaDevice, mongo} = require('./mongodb_manager')
 const listaRespostas = []
@@ -55,10 +53,6 @@ const listaRespostas = []
                             console.log(msg.device)
                             var novoDevice = msg.device;
                             var update = {}
-                            update[`/multi_data/device/`] = novoDevice
-                            firebase.database().ref().update(update).then(()=>{
-                                console.log('dispositivo salvo')
-                            }).catch(error => console.error(error))
                             send_message({ acao:'registro', canal:msg.canal })
                             break;
                     case 1:
